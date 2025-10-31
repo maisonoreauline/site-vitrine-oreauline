@@ -1,3 +1,6 @@
+Voici l’`index.html` corrigé : image “Roche-aux-Fées” appelée **images/roche-aux-fees.jpg** et vignettes **sans recadrage** (plus d’`object-fit: cover`, plus d’`aspect-ratio` imposé).
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,7 +51,7 @@
     .btn:hover{background:var(--accent-dark);text-decoration:none}
     .btn-second{background:#fff;color:var(--accent);border:1px solid var(--accent)} .btn-second:hover{background:#f9f5f1}
 
-    /* Image Roche-aux-Fées en <picture> à droite du héros */
+    /* HÉRO : simple <img> */
     .hero-photo{align-self:center}
     .hero-img{width:100%;height:auto;border-radius:16px;border:1px solid var(--liseré);
       box-shadow:inset 0 0 30px rgba(255,255,255,.25),0 15px 30px rgba(0,0,0,.06)}
@@ -75,9 +78,11 @@
     @media (max-width:900px){.grille-pieces{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:620px){.grille-pieces{grid-template-columns:1fr}}
     .carte-produit{background:var(--paper);border:1px solid var(--liseré);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-    /* Nouvelle logique d’image : ratio fixe 4:3 avec <img> */
-    .vignette{aspect-ratio:4/3;width:100%;overflow:hidden;display:block;border-bottom:1px solid var(--liseré)}
-    .vignette img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* VIGNETTES : ne plus couper les photos */
+    .vignette{width:100%;display:block;border-bottom:1px solid var(--liseré);background:#fff}
+    .vignette img{width:100%;height:auto;display:block;object-fit:contain}
+
     .infos{padding:14px;display:grid;gap:6px}
     .prix{font-weight:700;color:var(--accent-dark)}
     .filtres{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
@@ -130,23 +135,13 @@
             <a class="btn btn-second" href="https://www.etsy.com/fr/shop/AtelierOreauline" target="_blank" rel="noopener">Commander sur Etsy</a>
           </div>
         </div>
-        <!-- Image Roche-aux-Fées à droite (passage en <picture>/<img>) -->
-        <picture class="hero-photo">
-          <source type="image/avif" srcset="
-            images/roche-aux-fees-900.avif 900w,
-            images/roche-aux-fees-600.avif 600w,
-            images/roche-aux-fees-450.avif 450w" sizes="(max-width:820px) 92vw, 40vw">
-          <source type="image/webp" srcset="
-            images/roche-aux-fees-900.webp 900w,
-            images/roche-aux-fees-600.webp 600w,
-            images/roche-aux-fees-450.webp 450w" sizes="(max-width:820px) 92vw, 40vw">
+        <!-- HÉRO : image simple (pas de <picture>) -->
+        <div class="hero-photo">
           <img class="hero-img"
-               src="images/roche-aux-fees-900.jpg"
-               srcset="images/roche-aux-fees-900.jpg 900w, images/roche-aux-fees-600.jpg 600w, images/roche-aux-fees-450.jpg 450w"
-               sizes="(max-width:820px) 92vw, 40vw"
-               width="900" height="600"
-               alt="Roche-aux-Fées — alliance du verre et du bois" loading="eager" decoding="sync">
-        </picture>
+               src="images/roche-aux-fees.jpg"
+               alt="Roche-aux-Fées — alliance du verre et du bois"
+               loading="eager" decoding="sync">
+        </div>
       </div>
     </section>
 
@@ -178,7 +173,7 @@
       </div>
     </section>
 
-    <!-- NOUVELLE SECTION : Mon histoire -->
+    <!-- Mon histoire -->
     <section id="histoire" class="histoire">
       <div class="container">
         <h2 class="section-titre">Mon histoire</h2>
@@ -209,16 +204,12 @@
           <button class="chip" role="tab" aria-pressed="false" data-filtre="vitraux">Vitraux d’époque restaurés</button>
         </div>
 
-        <!-- Cartes produits (images en <img> ratio 4:3) -->
         <div class="grille-pieces" id="grille-produits" role="list">
 
           <!-- Croix fleurie d’azur -->
           <article class="carte-produit" role="listitem" data-cat="toutes celebrations">
             <div class="vignette">
-              <img src="images/croix-720.jpg"
-                   srcset="images/croix-360.jpg 360w, images/croix-720.jpg 720w, images/croix-1080.jpg 1080w"
-                   sizes="(max-width:900px) 50vw, (max-width:620px) 92vw, 33vw"
-                   width="720" height="540" alt="Croix fleurie d’azur" loading="lazy" decoding="async">
+              <img src="images/croix.jpg" alt="Croix fleurie d’azur" loading="lazy" decoding="async">
             </div>
             <div class="infos">
               <strong>Croix fleurie d’azur</strong>
@@ -232,10 +223,7 @@
           <!-- Couple de colibris en vol -->
           <article class="carte-produit" role="listitem" data-cat="toutes muraux perso">
             <div class="vignette">
-              <img src="images/couple-colibris-720.jpg"
-                   srcset="images/couple-colibris-360.jpg 360w, images/couple-colibris-720.jpg 720w, images/couple-colibris-1080.jpg 1080w"
-                   sizes="(max-width:900px) 50vw, (max-width:620px) 92vw, 33vw"
-                   width="720" height="540" alt="Couple de colibris en vol" loading="lazy" decoding="async">
+              <img src="images/couple-colibris.jpg" alt="Couple de colibris en vol" loading="lazy" decoding="async">
             </div>
             <div class="infos">
               <strong>Couple de colibris en vol</strong>
@@ -243,6 +231,18 @@
               <small>Duo de vitraux — technique Tiffany. Décoration murale prête à poser.<br>
               Socle en bois vernis en option : 35 €.<br>
               À l’unité : Mâle aux ailes irisées : 75 € · Femelle : 70 € (dans la limite des stocks disponibles).</small>
+            </div>
+          </article>
+
+          <!-- Lampe veilleuse perroquet -->
+          <article class="carte-produit" role="listitem" data-cat="toutes luminaires">
+            <div class="vignette">
+              <img src="images/lampe-veilleuse.jpg" alt="Lampe-veilleuse perroquet" loading="lazy" decoding="async">
+            </div>
+            <div class="infos">
+              <strong>Lampe-veilleuse perroquet</strong>
+              <span class="prix">—</span>
+              <small>Prototype — variations lumineuses douces.</small>
             </div>
           </article>
 
@@ -263,12 +263,9 @@
 
         <h3>Instagram (@atelier_oreauline)</h3>
         <div class="grille-pieces" aria-label="Galerie Instagram">
-          <a class="carte-produit" href="https://www.instagram.com/atelier_oreauline" target="_blank" rel="noopener" aria-label="Post 1 — Lampe d’ambiance perroquet">
+          <a class="carte-produit" href="https://www.instagram.com/atelier_oreauline" target="_blank" rel="noopener" aria-label="Post — Lampe d’ambiance perroquet">
             <div class="vignette">
-              <img src="images/lampe-veilleuse-720.jpg"
-                   srcset="images/lampe-veilleuse-360.jpg 360w, images/lampe-veilleuse-720.jpg 720w, images/lampe-veilleuse-1080.jpg 1080w"
-                   sizes="(max-width:900px) 50vw, (max-width:620px) 92vw, 33vw"
-                   width="720" height="540" alt="Lampe d’ambiance perroquet" loading="lazy" decoding="async">
+              <img src="images/lampe-veilleuse.jpg" alt="Lampe d’ambiance perroquet">
             </div>
           </a>
           <!-- Deuxième post Instagram retiré comme demandé -->
@@ -277,20 +274,14 @@
         <div style="height:20px"></div>
         <h3>Vitrine Etsy</h3>
         <div class="grille-pieces" aria-label="Galerie Etsy">
-          <a class="carte-produit" href="https://www.etsy.com/fr/shop/AtelierOreauline" target="_blank" rel="noopener" aria-label="Fiche Etsy 1 — Croix fleurie d’azur">
+          <a class="carte-produit" href="https://www.etsy.com/fr/shop/AtelierOreauline" target="_blank" rel="noopener" aria-label="Fiche Etsy — Croix fleurie d’azur">
             <div class="vignette">
-              <img src="images/croix-720.jpg"
-                   srcset="images/croix-360.jpg 360w, images/croix-720.jpg 720w, images/croix-1080.jpg 1080w"
-                   sizes="(max-width:900px) 50vw, (max-width:620px) 92vw, 33vw"
-                   width="720" height="540" alt="Croix fleurie d’azur" loading="lazy" decoding="async">
+              <img src="images/croix.jpg" alt="Croix fleurie d’azur">
             </div>
           </a>
-          <a class="carte-produit" href="https://www.etsy.com/fr/shop/AtelierOreauline" target="_blank" rel="noopener" aria-label="Fiche Etsy 2 — Couple de colibris en vol">
+          <a class="carte-produit" href="https://www.etsy.com/fr/shop/AtelierOreauline" target="_blank" rel="noopener" aria-label="Fiche Etsy — Couple de colibris en vol">
             <div class="vignette">
-              <img src="images/couple-colibris-720.jpg"
-                   srcset="images/couple-colibris-360.jpg 360w, images/couple-colibris-720.jpg 720w, images/couple-colibris-1080.jpg 1080w"
-                   sizes="(max-width:900px) 50vw, (max-width:620px) 92vw, 33vw"
-                   width="720" height="540" alt="Couple de colibris en vol" loading="lazy" decoding="async">
+              <img src="images/couple-colibris.jpg" alt="Couple de colibris en vol">
             </div>
           </a>
         </div>
@@ -368,3 +359,4 @@
   </script>
 </body>
 </html>
+```
